@@ -14,4 +14,3 @@ sed -i 's/compat/compat ldap/g' /etc/nsswitch.conf
 
 /etc/init.d/nscd restart
 
-getent passwd
