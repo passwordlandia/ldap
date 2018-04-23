@@ -1,0 +1,16 @@
+#!/bin/bash
+
+export DEBIAN_FRONTEND=noninteractive
+
+apt-install -y debconf-utils
+
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/ldap_debconf
+
+while read line; do echo "$line" | debconf-set-selection; < ldap_debconf.2
+
+apt-get -y install libpam-ldap nscd
+
+sed -i 's/compat/compat ldap/g' /etc/nsswitch.conf
+
+/etc/init.d/nscd restart
+
