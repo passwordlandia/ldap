@@ -33,7 +33,7 @@ yum -y install net-tools
 
 apt-get install nfs-client
 
-showmount -e $ipaddress
+showmount -e 10.142.0.5
 
 mkdir /mnt/test
 
