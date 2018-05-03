@@ -1,0 +1,85 @@
+#!/bin/bash
+sudo yum install epel-release
+sudo yum install -y python-pip python-devel gcc postgresql-server postgresql-devel postgresql-contrib
+
+sudo postgresql-setup initdb
+sudo systemctl enable postgresql
+sudo systemctl start postgresql
+
+cp /var/lib/pgsql/data/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf.bak
+
+sed -i 's/ident/md5/g' /var/lib/pgsql/data/pg_hba.conf
+
+sudo systemctl restart postgresql
+
+sudo su - postgres
+psql
+
+#####She will give this code to us to automate the script below#####
+CREATE DATABASE myproject;
+
+CREATE USER myprojectuser WITH PASSWORD 'password';
+
+ALTER ROLE myprojectuser SET client_encoding TO 'utf8';
+ALTER ROLE myprojectuser SET default_transaction_isolation TO 'read committed';
+ALTER ROLE myprojectuser SET timezone TO 'UTC';
+
+GRANT ALL PRIVILEGES ON DATABASE myproject TO myprojectuser;
+\q
+exit
+
+sudo pip install virtualenv
+
+mkdir ~/myproject
+cd ~/myproject
+
+virtualenv myprojectenv
+source myprojectenv/bin/activate
+pip install django psycopg2
+django-admin.py startproject myproject
+
+####This will be a sed line instead ###### vim ~/myproject/myproject/settings.py
+. . .
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+. . .
+
+#######From this Above ###########
+
+First, change the engine so that it points to the postgresql_psycopg2 backend instead of the sqlite3 backend.
+For the NAME, use the name of your database (myproject in our example). We also need to add login credentials.
+We need the username, password, and host to connect to. We'll add and leave blank the port option so that the default is selected
+. . .
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'myproject',
+        'USER': 'myprojectuser',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+. . .
+
+#######To This Above Using The Steps Outlined#################
+
+When you are finished, save and close the file.
+
+cd ~/myproject
+python manage.py makemigrations
+python manage.py migrate
+
+python manage.py createsuperuser
+
+python manage.py runserver 0.0.0.0:8000
+
+http://server_domain_or_IP:8000
