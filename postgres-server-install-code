@@ -11,23 +11,22 @@ cp /var/lib/pgsql/data/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf.bak
 sed -i 's/ident/md5/g' /var/lib/pgsql/data/pg_hba.conf
 
 sudo systemctl restart postgresql
+sudo systemctl enable postgresql
 
 sudo su - postgres
 psql
 
-#####She will give this code to us to automate the script below#####
-CREATE DATABASE myproject;
+sudo yum install -y wget
 
-CREATE USER myprojectuser WITH PASSWORD 'password';
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/sqlfile.sql
 
-ALTER ROLE myprojectuser SET client_encoding TO 'utf8';
-ALTER ROLE myprojectuser SET default_transaction_isolation TO 'read committed';
-ALTER ROLE myprojectuser SET timezone TO 'UTC';
+sudo -i -u postgres psql -U postgres -f sqlfile.sql
 
-GRANT ALL PRIVILEGES ON DATABASE myproject TO myprojectuser;
-\q
-exit
+###You are done. If you want to test this environment, SSH into the server and type 
+###sudo systemctl status postgresql####
 
+######The following will install Django into this environment. This is only for another lab down the line, and if 
+######You want to automate Django on your server. If not just stop at the portion above.#####
 sudo pip install virtualenv
 
 mkdir ~/myproject
