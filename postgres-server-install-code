@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo yum install epel-release
+sudo yum install -y epel-release
 sudo yum install -y python-pip python-devel gcc postgresql-server postgresql-devel postgresql-contrib
 
 sudo postgresql-setup initdb
