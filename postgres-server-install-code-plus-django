@@ -23,10 +23,8 @@ wget https://raw.githubusercontent.com/passwordlandia/ldap/master/sqlfile.sql
 sudo -i -u postgres psql -U postgres -f sqlfile.sql
 
 ###You are done. If you want to test this environment, SSH into the server and type 
-###sudo systemctl status postgresql####
+###sudo systemctl status postgresql###
 
-######The following will install Django into this environment. This is only for another lab down the line, and if 
-######You want to automate Django on your server. If not just stop at the portion above.#####
 sudo pip install virtualenv
 
 mkdir ~/myproject
@@ -37,6 +35,9 @@ source myprojectenv/bin/activate
 pip install django psycopg2
 django-admin.py startproject myproject
 
+cd myproject/
+
+vim settings.py 
 ####This will be a sed line instead ###### vim ~/myproject/myproject/settings.py
 . . .
 
@@ -76,6 +77,8 @@ When you are finished, save and close the file.
 cd ~/myproject
 python manage.py makemigrations
 python manage.py migrate
+
+source myprojectenv/bin/activate
 
 python manage.py createsuperuser
 
