@@ -14,9 +14,6 @@ sed -i 's/ident/md5/g' /var/lib/pgsql/data/pg_hba.conf
 sudo systemctl restart postgresql
 sudo systemctl enable postgresql
 
-sudo su - postgres
-psql
-
 sudo yum install -y wget
 
 wget https://raw.githubusercontent.com/passwordlandia/ldap/master/sqlfile.sql
