@@ -1,0 +1,3 @@
+Our final will consist of one file to spin up postgres django server together in a seperate area,
+and an ldap, to mail server, ubuntu client to ldap and nfs, and mail to nfs, nfs to ubuntu client 
+all in one shot. 
