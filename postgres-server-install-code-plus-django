@@ -25,18 +25,19 @@ sudo -i -u postgres psql -U postgres -f sqlfile.sql
 ###You are done. If you want to test this environment, SSH into the server and type 
 ###sudo systemctl status postgresql###
 
+
 ######This next section is on a new server for Django. It is spun up after a successful above. This will be 
 ######done on a new server again to repeat. You would use centos7, http and https and micro.####
 
-sudo yum -y install pip
-sudo yum -y install python-pip
-sudo yum -y pip install virtualenv
-sudo pip install --upgrade pip
-sudo pip install virtualenv
+yum -y install pip
+yum -y install python-pip
+yum install -y pip install virtualenv
+yum -y pip install --upgrade pip
 
 mkdir /opt/myproject
-cd /opt/myproject
+cd /opt/myproject/
 
+pip install virtualenv
 virtualenv myprojectenv
 source myprojectenv/bin/activate
 
