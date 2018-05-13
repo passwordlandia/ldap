@@ -1,20 +1,19 @@
-
-yum install phpPgAdmin
 #!/bin/bash
 
-sudo yum install -y epel-release
-sudo yum install -y python-pip python-devel gcc postgresql-server postgresql-devel postgresql-contrib
+yum install -y epel-release
+yum update -y
+yum install -y python-pip python-devel gcc postgresql-server postgresql-devel postgresql-contrib
 
-sudo postgresql-setup initdb
-sudo systemctl enable postgresql
-sudo systemctl start postgresql
+postgresql-setup initdb
+systemctl enable postgresql
+systemctl start postgresql
 
 cp /var/lib/pgsql/data/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf.bak
 
 sed -i 's/ident/md5/g' /var/lib/pgsql/data/pg_hba.conf
 
-sudo systemctl restart postgresql
 sudo systemctl enable postgresql
+sudo systemctl restart postgresql
 
 sudo yum install -y wget
 
@@ -25,28 +24,17 @@ sudo -i -u postgres psql -U postgres -f /sqlfile.sql
 ###You are done. If you want to test this environment, SSH into the server and type 
 ###sudo systemctl status postgresql####
 
-
 yum -y install phpPgAdmin
+
 setenforce 0
 
-Sed line 1
-in /etc/httpd/conf.d/phpPgAdmin.conf change "Require local" to "Require all granted" and Allow from localhost to "Allow from all"
+sed -i 's/Require local/Require all granted/g' /etc/httpd/conf.d/phpPgAdmin.conf
 
-Sed line 2 
-change 
-$conf['extra_login_security'] = true;
-to
-$conf['extra_login_security'] = false;
-in
-/etc/phpPgAdmin/config.inc.php
+sed -i '/extra_login_security/ s/true/false/g' /etc/phpPgAdmin/config.inc.php
 
-sudo su - postgres
-psql -d template1
-ALTER USER postgres WITH PASSWORD 'postgres';
+sudo -i -u postgres psql -U postgres -d template1 -c "ALTER USER postgres WITH PASSWORD 'postgres';"
 
-Sed line 3
-edit 
-vim /var/lib/pgsql/data/pg_hba.conf and replace 'peer' on line 80 with 'md5'
+sed -i '/^local/ s/peer/md5/g' /var/lib/pgsql/data/pg_hba.conf
 
 service postgresql restart
 systemctl enable httpd
