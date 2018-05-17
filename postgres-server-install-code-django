@@ -17,3 +17,18 @@ django-admin.py startproject myproject .
 yum -y install tree
 
 cd myproject/
+
+
+
+cd ~/myproject
+
+python manage.py makemigrations
+python manage.py migrate
+
+source myprojectenv/bin/activate
+
+python manage.py createsuperuser
+
+python manage.py runserver 0.0.0.0:8000
+
+http://server_domain_or_IP:8000
