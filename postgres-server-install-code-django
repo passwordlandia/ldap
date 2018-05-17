@@ -1,0 +1,19 @@
+#!/bin/bash
+yum -y install pip
+yum -y install python-pip
+yum install -y pip install virtualenv
+yum -y pip install --upgrade pip
+
+mkdir /opt/myproject
+cd /opt/myproject/
+
+pip install virtualenv
+virtualenv myprojectenv
+source myprojectenv/bin/activate
+
+pip install django psycopg2
+django-admin.py startproject myproject .
+
+yum -y install tree
+
+cd myproject/
