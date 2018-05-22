@@ -16,11 +16,7 @@ django-admin.py startproject myproject .
 
 yum -y install tree
 
-cd myproject/
-
-
-
-cd ~/myproject
+cd myproject/myproject
 
 python manage.py makemigrations
 python manage.py migrate
