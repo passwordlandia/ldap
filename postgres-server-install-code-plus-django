@@ -1,22 +1,24 @@
 #!/bin/bash
-sudo yum install -y epel-release
-sudo yum install -y python-pip python-devel gcc postgresql-server postgresql-devel postgresql-contrib
 
-sudo postgresql-setup initdb
-sudo systemctl enable postgresql
-sudo systemctl start postgresql
+yum install -y epel-release
+yum install -y python-pip python-devel gcc postgresql-server postgresql-devel postgresql-contrib
+
+
+postgresql-setup initdb
+systemctl enable postgresql
+systemctl start postgresql
 
 cp /var/lib/pgsql/data/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf.bak
 
 sed -i 's/ident/md5/g' /var/lib/pgsql/data/pg_hba.conf
 
-sudo systemctl restart postgresql
-sudo systemctl enable postgresql
+systemctl restart postgresql
+systemctl enable postgresql
 
 sudo su - postgres
 psql
 
-sudo yum -y install wget
+yum -y install wget
 
 wget https://raw.githubusercontent.com/passwordlandia/ldap/master/sqlfile.sql
 
