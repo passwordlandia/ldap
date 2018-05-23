@@ -72,10 +72,6 @@ settings_file_read.close()
 settings_file_write = open("/opt/django/myproject/settings.py", "w")
 settings_file_write.write(new_settings_file)
 
-vim settings.py 
-
-
-cd ~/myproject
 python manage.py makemigrations
 python manage.py migrate
 
