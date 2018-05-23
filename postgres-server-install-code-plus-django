@@ -50,43 +50,31 @@ django-admin.py startproject myproject .
 yum -y install tree
 
 cd myproject/
+cd myproject/
+
+settings_file_read = open("/opt/django/myproject/settings.py", "r+")
+count = 0
+remove_line = False
+new_settings_file = ""
+for line in settings_file_read:
+    if "DATABASES = {" in line:
+        remove_line = True
+    if remove_line:
+        if "{" in line:
+            count = count + 1
+        if "}" in line:
+            count = count - 1
+        settings_file_read.next()
+        if count == 0:
+            remove_line = False
+    else:
+        new_settings_file = new_settings_file + line
+settings_file_read.close()
+settings_file_write = open("/opt/django/myproject/settings.py", "w")
+settings_file_write.write(new_settings_file)
 
 vim settings.py 
-####This will be a sed line instead ###### vim ~/myproject/myproject/settings.py
-. . .
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-. . .
-
-#######From this Above ###########
-
-First, change the engine so that it points to the postgresql_psycopg2 backend instead of the sqlite3 backend.
-For the NAME, use the name of your database (myproject in our example). We also need to add login credentials.
-We need the username, password, and host to connect to. We'll add and leave blank the port option so that the default is selected
-. . .
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myproject',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
-
-. . .
-
-#######To This Above Using The Steps Outlined#################
-
-When you are finished, save and close the file.
 
 cd ~/myproject
 python manage.py makemigrations
