@@ -11,7 +11,7 @@ systemctl start postgresql
 cp /var/lib/pgsql/data/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf.bak
 
 sed -i 's/ident/md5/g' /var/lib/pgsql/data/pg_hba.conf
-
+sed -i 's/#listen_addresses = 'localhost'/listen_addresses = '*'/g' /var/lib/pgsql/data/postgresql.conf
 sudo systemctl enable postgresql
 sudo systemctl restart postgresql
 
