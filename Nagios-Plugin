@@ -1,0 +1,13 @@
+#!/bin/bash
+
+apache=$( systemctl status httpd | grep "active (running)" )
+
+if [ ! -z "$apache"]; then
+    echo "STATUS:OKAY"
+    exit 0;
+    
+  elif [ -z "$apache"]; then
+    echo "STATUS:CRITICAL"
+    exit 2;
+    
+fi
