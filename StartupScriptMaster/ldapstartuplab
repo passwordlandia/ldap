@@ -20,7 +20,7 @@ gcloud compute instances create ldap-test-b \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="ldap/StartupScriptMaster/ldap-startup-script" \
+    --metadata-from-file startup-script="passwordlandia/ldap/StartupScriptMaster/ldap-startup-script" \
 
 ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
 echo 10.142.0.28
