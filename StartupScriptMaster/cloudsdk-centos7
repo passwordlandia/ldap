@@ -15,6 +15,7 @@ gcloud compute instances list
 yum install git -y
 git clone (my_repository)
 
+####LDAP SERVER####
 gcloud compute instances create (instance-name-i-name-this) \
     --zone us-west1-b \
     --machine-type f1-micro \
@@ -23,6 +24,85 @@ gcloud compute instances create (instance-name-i-name-this) \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="location_of_my_startup_script" \
 
+ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
+echo ($ip=internal IP address instead of $ip)
+####LDAP SERVER#####
+
+####LDAP UBUNTU CLIENT-A####
+gcloud compute instances create (instance-name-i-name-this) \
+    --zone us-west1-b \
+    --machine-type f1-micro \
+    --image-family centos-7 \
+    --image-project centos-cloud \
+    --tags "http-server","https-server" \
+    --metadata-from-file startup-script="location_of_my_startup_script" \
 
 ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
 echo ($ip=internal IP address instead of $ip)
+####LDAP UBUNTU CLIENT-B####
+
+gcloud compute instances create (instance-name-i-name-this) \
+    --zone us-west1-b \
+    --machine-type f1-micro \
+    --image-family centos-7 \
+    --image-project centos-cloud \
+    --tags "http-server","https-server" \
+    --metadata-from-file startup-script="location_of_my_startup_script" \
+
+ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
+echo ($ip=internal IP address instead of $ip)
+####LDAP UBUNTU CLIENT-B####
+
+#####NFS SERVER####
+gcloud compute instances create (instance-name-i-name-this) \
+    --zone us-west1-b \
+    --machine-type f1-micro \
+    --image-family centos-7 \
+    --image-project centos-cloud \
+    --tags "http-server","https-server" \
+    --metadata-from-file startup-script="location_of_my_startup_script" \
+
+ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
+echo ($ip=internal IP address instead of $ip)
+#####NFS SERVER#####
+
+####NFS CLIENT#####
+gcloud compute instances create (instance-name-i-name-this) \
+    --zone us-west1-b \
+    --machine-type f1-micro \
+    --image-family centos-7 \
+    --image-project centos-cloud \
+    --tags "http-server","https-server" \
+    --metadata-from-file startup-script="location_of_my_startup_script" \
+
+ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
+echo ($ip=internal IP address instead of $ip)
+####NFS CLIENT#####
+
+####POSTGRES SERVER#####
+gcloud compute instances create (instance-name-i-name-this) \
+    --zone us-west1-b \
+    --machine-type f1-micro \
+    --image-family centos-7 \
+    --image-project centos-cloud \
+    --tags "http-server","https-server" \
+    --metadata-from-file startup-script="location_of_my_startup_script" \
+
+ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
+echo ($ip=internal IP address instead of $ip)
+####POSTGRES SERVER####
+
+####DJANGO SERVER####
+gcloud compute instances create (instance-name-i-name-this) \
+    --zone us-west1-b \
+    --machine-type f1-micro \
+    --image-family centos-7 \
+    --image-project centos-cloud \
+    --tags "http-server","https-server" \
+    --metadata-from-file startup-script="location_of_my_startup_script" \
+
+ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
+echo ($ip=internal IP address instead of $ip)
+####DJANGO SERVER####
+
+##END OF SCRIPT####
