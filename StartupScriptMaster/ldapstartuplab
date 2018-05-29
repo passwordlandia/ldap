@@ -1,0 +1,26 @@
+#!/bin/bash
+
+yum -y install google-cloud-sdk
+google-cloud-sdk-app-engine-python
+gcloud init
+
+yum -y install python-pip
+pip install --upgrade pip
+pip install oauth2client
+pip install --upgrade google-api-python-client
+
+gcloud compute instances list
+
+yum install git -y
+git clone https://github.com/passwordlandia/ldap.git
+
+gcloud compute instances create ldap-test-a \
+    --zone us-west1-b \
+    --machine-type f1-micro \
+    --image-family centos-7 \
+    --image-project centos-cloud \
+    --tags "http-server","https-server" \
+    --metadata-from-file startup-script="ldap/StartupScriptMaster/ldap-startup-script" \
+
+ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
+echo $ip
