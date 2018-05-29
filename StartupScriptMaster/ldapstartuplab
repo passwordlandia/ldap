@@ -14,7 +14,7 @@ gcloud compute instances list
 yum install git -y
 git clone https://github.com/passwordlandia/ldap.git
 
-gcloud compute instances create ldap-test-a \
+gcloud compute instances create ldap-test-b \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
