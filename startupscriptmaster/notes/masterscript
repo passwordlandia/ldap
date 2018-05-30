@@ -17,7 +17,7 @@ yum install git -y
 git clone https://github.com/passwordlandia/ldap.git
 
 ####LDAP SERVER#####
-gcloud compute instances create ldap-test-b \
+gcloud compute instances create ldap-server-a \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
