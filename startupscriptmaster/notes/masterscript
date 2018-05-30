@@ -13,96 +13,97 @@ gcloud compute instances list
 
 
 yum install git -y
-git clone (my_repository)
 
-####LDAP SERVER####
-gcloud compute instances create (instance-name-i-name-this) \
-    --zone us-west1-b \
+git clone https://github.com/passwordlandia/ldap.git
+
+####LDAP SERVER#####
+gcloud compute instances create ldap-test-b \
+    --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="location_of_my_startup_script" \
+    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ldapstartupscript.sh"
+    
+ip=$(gcloud compute instances list | grep ldap-server-a | awk '{ print $4 }' | tail -1) 
 
-ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
-echo ($ip=internal IP address instead of $ip)
+echo $ldapip > ldapip.txt
 ####LDAP SERVER#####
 
-####LDAP UBUNTU CLIENT-A####
-gcloud compute instances create (instance-name-i-name-this) \
-    --zone us-west1-b \
+####LDAP CLIENT-A####
+gcloud compute instances create ldap-client-a \
+    --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="location_of_my_startup_script" \
+    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ldapclientastartupscript.sh"
+    
+ip=$(gcloud compute instances list | grep ldap-client-a | awk '{ print $4 }' | tail -1) 
 
-ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
-echo ($ip=internal IP address instead of $ip)
 ####LDAP UBUNTU CLIENT-B####
 
-gcloud compute instances create (instance-name-i-name-this) \
-    --zone us-west1-b \
+gcloud compute instances create ldap-client-b \
+    --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="location_of_my_startup_script" \
+    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ldapclientbstartupscript.sh"
+    
+ip=$(gcloud compute instances list | grep ldap-client-b | awk '{ print $4 }' | tail -1) 
 
-ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
-echo ($ip=internal IP address instead of $ip)
 ####LDAP UBUNTU CLIENT-B####
 
 #####NFS SERVER####
-gcloud compute instances create (instance-name-i-name-this) \
-    --zone us-west1-b \
+gcloud compute instances create ldap-nfs-server \
+    --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="location_of_my_startup_script" \
+    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/nfsstartupscript.sh"
+    
+ip=$(gcloud compute instances list | grep nfs-server | awk '{ print $4 }' | tail -1) 
 
-ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
-echo ($ip=internal IP address instead of $ip)
 #####NFS SERVER#####
 
 ####NFS CLIENT#####
-gcloud compute instances create (instance-name-i-name-this) \
-    --zone us-west1-b \
+gcloud compute instances create ldap-nfs-client \
+    --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="location_of_my_startup_script" \
+    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/nfsclientstartupscript.sh"
+    
+ip=$(gcloud compute instances list | grep ldap-nfs-client | awk '{ print $4 }' | tail -1) 
 
-ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
-echo ($ip=internal IP address instead of $ip)
 ####NFS CLIENT#####
 
 ####POSTGRES SERVER#####
-gcloud compute instances create (instance-name-i-name-this) \
-    --zone us-west1-b \
+gcloud compute instances create ldap-postgres-server\
+    --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="location_of_my_startup_script" \
+    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/postgresstartupscript.sh"
+    
+ip=$(gcloud compute instances list | grep ldap-postgres-server | awk '{ print $4 }' | tail -1) 
 
-ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
-echo ($ip=internal IP address instead of $ip)
 ####POSTGRES SERVER####
 
 ####DJANGO SERVER####
-gcloud compute instances create (instance-name-i-name-this) \
-    --zone us-west1-b \
+gcloud compute instances create ldap-django-server \
+    --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="location_of_my_startup_script" \
-
-ip=$(gcloud compute instances list | grep (instance-name-i-created) | awk '{ print $4 }' | tail -1) \
-echo ($ip=internal IP address instead of $ip)
+    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/djangoserverstartupscript.sh"
+    
+ip=$(gcloud compute instances list | grep ldap-django-server | awk '{ print $4 }' | tail -1) 
 ####DJANGO SERVER####
 
 ##END OF SCRIPT####
