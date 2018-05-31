@@ -22,7 +22,7 @@ django-admin.py startproject myproject .
 
 pip install wget
 
-curl https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
+curl https://raw.githubusercontent.com/passwordlandia/ldap/postgres/settings.py
 
 cd opt/myproject
 
