@@ -16,12 +16,13 @@ virtualenv myprojectenv
 source myprojectenv/bin/activate
 pip install django psycopg2
 
-chown -R paulierev1775 . /opt/myproject
-django-admin.py startproject myproject .
 
 pip install wget
 
 wget https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
+
+chown -R paulierev1775 . /opt/myproject
+django-admin.py startproject myproject .
 
 cd opt/myproject
 
