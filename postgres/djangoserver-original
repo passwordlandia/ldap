@@ -22,7 +22,6 @@ cd /opt/myproject/myproject
 
 django-admin.py startproject myproject .
 
-cd opt/myproject
 curl https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py >> settings.py
 
 python manage.py makemigrations
