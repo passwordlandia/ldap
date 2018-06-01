@@ -1,5 +1,3 @@
-##This is a script for my django server###
-
 #!/bin/bash
 
 yum install -y epel-release
@@ -10,9 +8,6 @@ pip install virtualenv
 pip install --upgrade pip
 yum install -y telnet
 
-pip install wget
-wget https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
-
 mkdir /opt/myproject
 cd /opt/myproject
 
@@ -20,6 +15,12 @@ virtualenv myprojectenv
 
 source myprojectenv/bin/activate
 pip install django psycopg2
+
+
+pip install wget
+cd /opt/myproject/myproject
+
+curl https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py > settings.py
 
 django-admin.py startproject myproject .
 
