@@ -3,21 +3,25 @@
 yum install -y epel-release
 yum update -y
 yum install python-pip -y
-pip install virtualenv
-pip install --upgrade pip
+sudo pip install virtualenv
+sudo pip install --upgrade pip
 yum install -y telnet
 
 mkdir /opt/myproject
 cd /opt/myproject
 
+sudo pip install virtualenv
 virtualenv myprojectenv
 source myprojectenv/bin/activate
-pip install django psycopg2
+sudo pip install django psycopg2
 django-admin.py startproject myproject .
 
+cd myproject
+yum -y install wget
 wget https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
+mv settings.py.1 settings.py -y
 
-cd /opt/myproject/
+cd ..
 
 python manage.py makemigrations
 python manage.py migrate
