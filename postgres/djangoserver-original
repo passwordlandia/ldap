@@ -20,11 +20,10 @@ pip install django psycopg2
 pip install wget
 cd /opt/myproject/myproject
 
-curl https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py > settings.py
-
 django-admin.py startproject myproject .
 
 cd opt/myproject
+curl https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py >> settings.py
 
 python manage.py makemigrations
 python manage.py migrate
