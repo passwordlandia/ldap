@@ -10,6 +10,10 @@ pip install virtualenv
 pip install --upgrade pip
 yum install -y telnet
 
+pip install wget
+
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
+
 mkdir /opt/myproject
 cd /opt/myproject
 
@@ -19,10 +23,6 @@ source myprojectenv/bin/activate
 pip install django psycopg2
 
 django-admin.py startproject myproject .
-
-pip install wget
-
-wget https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
 
 cd opt/myproject
 
