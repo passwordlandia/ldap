@@ -5,19 +5,18 @@
 yum install -y epel-release
 yum update -y
 yum install python-pip -y
-
-pip install virtualenv
 pip install --upgrade pip
+pip install virtualenv
 yum install -y telnet
 
 mkdir /opt/myproject
 cd /opt/myproject
 
 virtualenv myprojectenv
-
 source myprojectenv/bin/activate
 pip install django psycopg2
 
+chown -R paulierev1775 . /opt/myproject
 django-admin.py startproject myproject .
 
 pip install wget
@@ -29,4 +28,8 @@ cd opt/myproject
 python manage.py makemigrations
 python manage.py migrate
 
-python manage.py runserver 0.0.0.0:8000
+sudo -u paulierev1775 -E sh -c "source /opt/myproject/myprojectenv/bin/activate && /opt/myproject/manage.py runserver 0.0.0.0:8000&"
+
+python manage.py makemigrations
+python manage.py migrate
+
