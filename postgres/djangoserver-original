@@ -3,7 +3,6 @@
 yum install -y epel-release
 yum update -y
 yum install python-pip -y
-
 pip install virtualenv
 pip install --upgrade pip
 yum install -y telnet
@@ -12,18 +11,11 @@ mkdir /opt/myproject
 cd /opt/myproject
 
 virtualenv myprojectenv
-
 source myprojectenv/bin/activate
-
 pip install django psycopg2
-
-pip install wget
-
-cd /opt/myproject/myproject
-
 django-admin.py startproject myproject .
 
-curl https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
 
 cd /opt/myproject/
 
