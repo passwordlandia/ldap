@@ -14,15 +14,18 @@ cd /opt/myproject
 virtualenv myprojectenv
 
 source myprojectenv/bin/activate
+
 pip install django psycopg2
 
-
 pip install wget
+
 cd /opt/myproject/myproject
 
 django-admin.py startproject myproject .
 
-curl https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py >> settings.py
+curl https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
+
+cd /opt/myproject/
 
 python manage.py makemigrations
 python manage.py migrate
