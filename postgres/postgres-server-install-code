@@ -18,7 +18,7 @@ sudo systemctl restart postgresql
 
 sudo yum install -y wget
 
-wget https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/sqlfile.sql
 
 sudo -i -u postgres psql -U postgres -f ldap/sqlfile.sql
 
