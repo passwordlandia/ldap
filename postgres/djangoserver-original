@@ -19,7 +19,7 @@ django-admin.py startproject myproject .
 cd myproject
 yum -y install wget
 wget https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
-mv settings.py.1 settings.py -y
+mv settings.py.1 settings.py
 
 cd ..
 
