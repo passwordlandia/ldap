@@ -11,8 +11,6 @@ systemctl start postgresql
 
 cp /var/lib/pgsql/data/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf.bak
 
-sed -i 's/ident/md5/g' /var/lib/pgsql/data/pg_hba.conf
-
 systemctl restart postgresql.service
 systemctl enable postgresql
 
@@ -21,21 +19,27 @@ yum install -y wget
 
 wget https://raw.githubusercontent.com/passwordlandia/ldap/master/sqlfile.sql
 
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/pg_hba.conf
+
+mv pg_hba.conf /var/lib/pgsql/data/pg_hba.conf
+
+systemctl restart postgresql.service
+systemctl enable postgresql
+
 sudo -i -u postgres psql -U postgres -f /sqlfile.sql
 
 ###You are done. If you want to test this environment, SSH into the server and type 
 ###sudo systemctl status postgresql####
 
-sed -i 's/ident/md5/g' /var/lib/pgsql/data/pg_hba.conf
 systemctl restart postgresql
 
 yum -y install phpPgAdmin
+
 setenforce 0
 
 sed -i 's/Require local/Require all granted/g' /etc/httpd/conf.d/phpPgAdmin.conf
 sed -i 's/Allow from 127.0.0.1/Allow from all/g' /etc/httpd/conf.d/phpPgAdmin.conf
 sed -i '/extra_login_security/ s/true/false/g' /etc/phpPgAdmin/config.inc.php
-sed -i 's/peer/md5/g' /var/lib/pgsql/data/pg_hba.conf
 systemctl restart postgresql.service
 
 
