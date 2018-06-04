@@ -10,19 +10,15 @@ yum install -y telnet
 mkdir /opt/myproject
 cd /opt/myproject
 
+yum -y install wget
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
+mv settings.py.1 settings.py
+
 sudo pip install virtualenv
 virtualenv myprojectenv
 source myprojectenv/bin/activate
 sudo pip install django psycopg2
 django-admin.py startproject myproject .
-
-cd myproject
-
-yum -y install wget
-wget https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
-mv settings.py.1 settings.py
-
-cd ..
 
 python manage.py makemigrations
 python manage.py migrate
