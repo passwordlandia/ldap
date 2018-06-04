@@ -12,7 +12,7 @@ cd /opt/myproject
 
 yum -y install wget
 wget https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
-mv -f /opt/myproject/settings.py* /opt/myproject/myproject/settings.py
+mv -f /opt/myproject/settings.py /opt/myproject/myproject/settings.py
 
 sudo pip install virtualenv
 virtualenv myprojectenv
