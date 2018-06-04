@@ -14,12 +14,14 @@ cp /var/lib/pgsql/data/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf.bak
 systemctl restart postgresql.service
 systemctl enable postgresql
 
-
 yum install -y wget
 
 wget https://raw.githubusercontent.com/passwordlandia/ldap/master/sqlfile.sql
 
 mv sqlfile.sql.1 sqlfile.sql
+
+systemctl restart postgresql.service
+systemctl enable postgresql
 
 wget https://raw.githubusercontent.com/passwordlandia/ldap/master/pg_hba.conf
 
