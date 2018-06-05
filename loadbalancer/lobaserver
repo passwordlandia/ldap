@@ -69,3 +69,13 @@ wget https://raw.githubusercontent.com/passwordlandia/ldap/master/loadbalancer/u
 systemctl stop nginx
 systemctl start uwsgi
 systemctl start nginx
+
+
+
+###FINAL THOUGHTS FROM AUTHOR###
+### am still stuck at apivndeveloper_uwsgi.ini with chmod-socket = 666.###
+###Whenever I change it to chmod-socket = 664, I get 502 bad gateway.###
+###If someone knows the cause and how to fix it, please let me know.###
+###BELOW IS THE RESPONSE IN COMMENTS FROM A USER###
+###It appears to me that you are accessing your site via uWSGI directly.### 
+###If you want to use it (uWSGI), then just change the port from 8000 to 80 or you can serve all requests via nginx (proxy).###
