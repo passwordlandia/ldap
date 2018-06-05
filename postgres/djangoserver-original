@@ -12,13 +12,14 @@ cd /opt/myproject
 
 yum -y install wget
 wget https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
-mv -f /opt/myproject/settings.py /opt/myproject/myproject/settings.py
 
 sudo pip install virtualenv
 virtualenv myprojectenv
 source myprojectenv/bin/activate
 sudo pip install django psycopg2
 django-admin.py startproject myproject .
+
+mv -f /opt/myproject/settings.py /opt/myproject/myproject/settings.py
 
 python manage.py makemigrations
 python manage.py migrate
