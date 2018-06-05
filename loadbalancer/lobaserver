@@ -1,0 +1,71 @@
+#!/bin/bash
+
+###1. Install Dependencies###
+
+yum install epel-release -y
+yum update -y
+yum install python-pip -y
+sudo pip install --upgrade pip
+yum install nginx -y
+yum -y install wget
+
+yum install python34-devel gcc -y
+curl -O https://bootstrap.pypa.io/get-pip.py
+/usr/bin/python3.4 get-pip.py
+
+pip install virtualenv
+mkdir -p /var/www && cd /var/www
+virtualenv -p python3 p3venv
+
+source p3venv/bin/activate
+pip install uwsgi
+pip install django
+
+###2. Configurations###
+
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/loadbalancer/apivndeveloper.conf
+
+### Any *.conf file inside this folder will be loaded as per instructed by main & default NGINX configuration (/etc/nginx/nginx.conf).###
+
+systemctl enable nginx
+systemctl start nginx
+
+###As of now, we have NGINX serves static files and by pass others to Django Server which will be configured shortly.###
+###It means you will get 502 bad gateway when accessing http://api.vndeveloper.com but this is totally fine.###
+
+cd /var/www
+django-admin.py startproject apivndeveloper
+
+### Also allow domain (api.vndeveloper.com) or IP in Django settings. I'll have to write a sed line to:
+###(/var/www/apivndeveloper/apivndeveloper/settings.py)###
+
+python manage.py runserver 0.0.0.0:8000 ("ctrl + c" to terminate)
+uwsgi --http :8000 --module apivndeveloper.wsgi ("ctrl + c" to terminate)
+
+# Create 'uwsgi' user: unprivileged user
+useradd -s /bin/false -r uwsgi
+
+##Emperor mode###
+###create a directory for the vassals###
+
+- mkdir -p /etc/uwsgi/vassals
+
+###Configuring uWSGI to run with a .ini file using this path###
+### /var/www/apivndeveloper/apivndeveloper_uwsgi.ini###
+
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/loadbalancer/uwsgi.ini
+
+ln -s /var/www/apivndeveloper/apivndeveloper_uwsgi.ini /etc/uwsgi/vassals/
+
+###Quick test if the configuration is good by start uWSGI server and navigate to http://api.vndeveloper.com.###
+###You should get “It worked! Congratulations on your first Django-powered page.”###
+
+/var/www/p3venv/bin/uwsgi --emperor /etc/uwsgi/vassals
+
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/loadbalancer/uwsgi.service
+
+###the path to this file is vi /etc/systemd/system/uwsgi.service###
+
+systemctl stop nginx
+systemctl start uwsgi
+systemctl start nginx
