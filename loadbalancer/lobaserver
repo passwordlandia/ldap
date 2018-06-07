@@ -36,6 +36,7 @@ systemctl start nginx
 cd /var/www
 django-admin.py startproject apivndeveloper
 
+sed -i's "ALLOWED_HOSTS = []/ALLOWED_HOSTS = [ 
 ### Also allow domain (api.vndeveloper.com) or IP in Django settings. I'll have to write a sed line to:
 ###(/var/www/apivndeveloper/apivndeveloper/settings.py)###
 
