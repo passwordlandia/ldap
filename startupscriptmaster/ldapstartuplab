@@ -12,6 +12,5 @@ gcloud compute instances create ldap-test-b \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ldapstartupscript.sh"
     
-ip=$(gcloud compute instances list | grep ldap-test-b | awk '{ print $4 }' | tail -1) 
-
+ldapip=$(gcloud compute instances list | grep ldap-test-b | awk '{ print $4 }' | tail -1) 
 echo $ldapip > ldapip.txt
