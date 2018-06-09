@@ -21,12 +21,10 @@ source p3venv/bin/activate
 pip install uwsgi
 pip install django
 
+cd /etc/nginx/conf.d
 ###2. Configurations###
-
-wget https://raw.githubusercontent.com/passwordlandia/ldap/master/loadbalancer/apivndeveloper.conf
-
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/loadbalancer/cioenglish.conf
 ### Any *.conf file inside this folder will be loaded as per instructed by main & default NGINX configuration (/etc/nginx/nginx.conf).###
-
 systemctl enable nginx
 systemctl start nginx
 
@@ -34,9 +32,11 @@ systemctl start nginx
 ###It means you will get 502 bad gateway when accessing http://api.vndeveloper.com but this is totally fine.###
 
 cd /var/www
-django-admin.py startproject apivndeveloper
+django-admin.py startproject cioenglish
 
-sed -i's "ALLOWED_HOSTS = []/ALLOWED_HOSTS = [ 
+sed -i's "ALLOWED_HOSTS = []/ALLOWED_HOSTS = ['cioenglish.com'] /var/www/cioenglish/cioenglish/settings.py
+
+
 ### Also allow domain (api.vndeveloper.com) or IP in Django settings. I'll have to write a sed line to:
 ###(/var/www/apivndeveloper/apivndeveloper/settings.py)###
 
