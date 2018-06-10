@@ -80,7 +80,7 @@ DATABASES = {
         'USER': 'myprojectuser',
         'PASSWORD': 'password',
         'HOST': '10.142.0.9',
-        'PORT': '8000',
+        'PORT': '80',
     }
 }
 
