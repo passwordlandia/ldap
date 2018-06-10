@@ -27,7 +27,6 @@ wget https://raw.githubusercontent.com/passwordlandia/ldap/master/loadbalancer/a
 
 ### Any *.conf file inside this folder will be loaded as per instructed by main & default NGINX configuration (/etc/nginx/nginx.conf).###
 
-systemctl enable nginx
 systemctl start nginx
 
 ###As of now, we have NGINX serves static files and by pass others to Django Server which will be configured shortly.###
