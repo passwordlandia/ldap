@@ -49,8 +49,6 @@ server {
 }" > /etc/nginx/conf.d/apivndeveloper.conf
 
 systemctl start nginx
-cd /var/www
-
 django-admin.py startproject apivndeveloper
 
 python manage.py runserver 0.0.0.0:8000 
