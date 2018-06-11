@@ -7,7 +7,7 @@ yum update -y
 yum install python-pip -y
 sudo pip install --upgrade pip
 yum install nginx -y
-pip install wget
+yum install wget -y
 
 yum install python34-devel gcc -y
 curl -O https://bootstrap.pypa.io/get-pip.py
