@@ -22,7 +22,7 @@ pip install django
 
 ###2. Configurations###
 
-echo -e "the upstream component NGINX needs to connect to
+echo -e "# the upstream component NGINX needs to connect to
 upstream django {
 	server unix:/run/uwsgi/cioenglish.sock;
 }
@@ -58,9 +58,15 @@ systemctl start nginx
 cd /var/www
 django-admin.py startproject cioenglish &
 
-echo "ALLOWED_HOSTS = ['cioenglish.com']" >> /var/www/cioenglish/cioenglish/settings.py
+cd cioenglish
 
 cd cioenglish
+
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/loadbalancer/settings.py
+
+mv -f /var/www/cioenglish/cioenglish/settings.py.1 /var/www/cioenglish/cioenglish/settings.py
+
+cd ..
 
 python manage.py migrate
 
