@@ -9,15 +9,12 @@ pip install --upgrade pip
 pip install oauth2client
 pip install --upgrade google-api-python-client
 
-gcloud compute instances list
-
-
 yum install git -y
 
 git clone https://github.com/passwordlandia/ldap.git
 
 ####LDAP SERVER#####
-gcloud compute instances create ldap-server-a \
+gcloud compute instances ldap-server-a \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
@@ -31,7 +28,7 @@ echo $ldapip > ldapip.txt
 ####LDAP SERVER#####
 
 ####LDAP CLIENT-A####
-gcloud compute instances create ldap-client-a \
+gcloud compute instances ldap-client-a \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
@@ -41,9 +38,10 @@ gcloud compute instances create ldap-client-a \
     
 ip=$(gcloud compute instances list | grep ldap-client-a | awk '{ print $4 }' | tail -1) 
 
+echo $ldapipclienta > ldapipclienta.txt
 ####LDAP UBUNTU CLIENT-B####
 
-gcloud compute instances create ldap-client-b \
+gcloud compute instances ldap-client-b \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
@@ -53,10 +51,11 @@ gcloud compute instances create ldap-client-b \
     
 ip=$(gcloud compute instances list | grep ldap-client-b | awk '{ print $4 }' | tail -1) 
 
+echo $ldapipclientb > ldapipclientb.txt
 ####LDAP UBUNTU CLIENT-B####
 
 #####NFS SERVER####
-gcloud compute instances create ldap-nfs-server \
+gcloud compute instances ldap-nfs-server \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
@@ -66,10 +65,11 @@ gcloud compute instances create ldap-nfs-server \
     
 ip=$(gcloud compute instances list | grep nfs-server | awk '{ print $4 }' | tail -1) 
 
+echo $nfsip > nfsip.txt
 #####NFS SERVER#####
 
 ####NFS CLIENT#####
-gcloud compute instances create ldap-nfs-client \
+gcloud compute instances ldap-nfs-client \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
@@ -79,10 +79,11 @@ gcloud compute instances create ldap-nfs-client \
     
 ip=$(gcloud compute instances list | grep ldap-nfs-client | awk '{ print $4 }' | tail -1) 
 
+echo $nfsclient > nfsclient.txt
 ####NFS CLIENT#####
 
 ####POSTGRES SERVER#####
-gcloud compute instances create ldap-postgres-server\
+gcloud compute instances ldap-postgres-server\
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
@@ -92,10 +93,11 @@ gcloud compute instances create ldap-postgres-server\
     
 ip=$(gcloud compute instances list | grep ldap-postgres-server | awk '{ print $4 }' | tail -1) 
 
+echo $postgresip > postgresip.txt
 ####POSTGRES SERVER####
 
 ####DJANGO SERVER####
-gcloud compute instances create ldap-django-server \
+gcloud compute instances ldap-django-server \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
@@ -104,6 +106,8 @@ gcloud compute instances create ldap-django-server \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/djangoserverstartupscript.sh"
     
 ip=$(gcloud compute instances list | grep ldap-django-server | awk '{ print $4 }' | tail -1) 
+
+echo $djangoip > djangoip.txt
 ####DJANGO SERVER####
 
 ##END OF SCRIPT####
