@@ -4,16 +4,25 @@ yum -y install exim mailx
 
 mkdir /root/SSL/mail.mydomain.com -p
 cd /root/SSL/mail.mydomain.com
-openssl req -nodes -x509 -newkey rsa:2048 -keyout mail.mydomain.com.key -out mail.mydomain.com.crt -days 365
+
+COUNTRY="US"               
+STATE="Washington"        
+LOCALITY="Seattle"        
+ORGNAME="SCC"              
+ORGUNIT="1"                 
+HOSTNAME="Mail"
+EMAIL="paulierev1775@mydomain.com" 
+cat <<__EOF__ | openssl req -nodes -x509 -newkey rsa:2048 -keyout mail.mydomain.com.key -out mail.mydomain.com.crt -days 365
+$COUNTRY
+$STATE
+$LOCALITY
+$ORGNAME
+$ORGUNIT
+$HOSTNAME
+$EMAIL
+__EOF__
+
 cp mail.mydomain.com.key mail.mydomain.com.crt /etc/ssl/
-
-echo -e "Country Name (2 letter code) [XX]:us;Country Name (2 letter code) [XX]:us;/n
-State or Province Name (full name) []:South Carolina;Locality Name (eg, city) [Default City]:us-east1-b;/n
-Organization Name (eg, company) [Default Company Ltd]:My First Project;/n
-Organizational Unit Name (eg, section) []:mailserver-final;/n
-Common Name (eg, your name or your server's hostname) []:mailserver-final;/n
-Email Address []:paulierev1775@gmail.com;"
-
 cp /etc/exim/exim.conf{,.orig}
 
 yum -y install wget
