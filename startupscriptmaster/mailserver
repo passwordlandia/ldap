@@ -1,0 +1,33 @@
+#!/bin/bash
+
+yum install exim mailx
+
+mkdir /root/SSL/mail.mydomain.com -p
+cd /root/SSL/mail.mydomain.com
+openssl req -nodes -x509 -newkey rsa:2048 -keyout mail.mydomain.com.key -out mail.mydomain.com.crt -days 365
+cp mail.mydomain.com.key mail.mydomain.com.crt /etc/ssl/
+
+sed line for inputs
+
+cp /etc/exim/exim.conf{,.orig}
+
+####Then open the exim config file: vim /etc/exim/exim.conf####
+
+###Follow this tutorial to configure exim: https://www.rosehosting.com/blog/setup-a-mailserver-with-exim-and-dovecot-on-a-centos-7-vps/ ###
+
+###(You'll have to scroll down to where it has you edit the exam file)###
+
+systemctl start exim
+
+###To verify it's running issue systemctl status exim###
+
+###sdiff exim.conf exim.conf.orig to see where you have changed the file###
+
+###To test: echo "test" | /usr/sbin/exim -v nicolebade@mydomain.com where nicolebade@mydomain.com is your gcloud user,### 
+###you should see exam working to deliver the message. It won't go through because of port blockage,### 
+###but you'll be able to see it in the output of your command.###
+
+###if you tail /var/log/exim/main.log you should see the mail attempting to be sent and timing out:###
+
+###Complete this assignment by automating your build of the mail server.###
+If you need help, don't hesitate to ask. Note that "wgeting" exim and dovecot config files is fine to complete the configuration.###
