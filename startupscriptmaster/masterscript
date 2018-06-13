@@ -14,7 +14,7 @@ yum install git -y
 git clone https://github.com/passwordlandia/ldap.git
 
 ####LDAP SERVER START#####
-gcloud compute instances ldap-final-server \
+gcloud compute instances create ldap-final-server \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
@@ -28,7 +28,7 @@ echo $ldapip > ldapip.txt
 ####LDAP SERVER END#####
 
 #####NFS SERVER START####
-gcloud compute instances nfs-final-server \
+gcloud compute instances create nfs-final-server \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
@@ -42,7 +42,7 @@ echo $nfsip > nfsip.txt
 #####NFS SERVER END#####
 
 ####UBNFS CLIENT A START#####
-gcloud compute instances ldapubnfscl-a-final \
+gcloud compute instances create ldapubnfscl-a-final \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family ubuntu-1604-lts \
@@ -53,7 +53,7 @@ gcloud compute instances ldapubnfscl-a-final \
 ####UBNFS CLIENT A END#####
 
 ####UBNFS CLIENT B START#####
-gcloud compute instances ldapubnfscl-b-final \
+gcloud compute instances create ldapubnfscl-b-final \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family ubuntu-1604-lts \
@@ -64,7 +64,7 @@ gcloud compute instances ldapubnfscl-b-final \
 ####UBNFS CLIENT B END#####
 
 ####POSTGRES SERVER START#####
-gcloud compute instances postgres-final-server\
+gcloud compute instances create postgres-final-server\
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
@@ -78,7 +78,7 @@ echo $postgresip > postgresip.txt
 ####POSTGRES SERVER END####
 
 ####DJANGO SERVER START####
-gcloud compute instances django-final-server \
+gcloud compute instances create django-final-server \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
