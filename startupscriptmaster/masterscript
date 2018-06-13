@@ -20,7 +20,7 @@ gcloud compute instances create ldap-final-server \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ldapstartupscript.sh"
+    --metadata-from-file startup-script="/ldap/startupscriptmaster/ldapstartupscript.sh"
     
 ldapip=$(gcloud compute instances list | grep ldap-final-server | awk '{ print $4 }' | tail -1) 
 
@@ -34,7 +34,7 @@ gcloud compute instances create nfs-final-server \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/nfsstartupscript.sh"
+    --metadata-from-file startup-script="/ldap/startupscriptmaster/nfsstartupscript.sh"
     
 nfsip=$(gcloud compute instances list | grep nfs-final-server | awk '{ print $4 }' | tail -1) 
 
@@ -48,7 +48,7 @@ gcloud compute instances create ldapubnfscl-a-final \
     --image-family ubuntu-1604-lts \
     --image-project ubuntu-os-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ubnfsclientstartupscript.sh"
+    --metadata-from-file startup-script="/ldap/startupscriptmaster/ubnfsclientstartupscript.sh"
 
 ####UBNFS CLIENT A END#####
 
@@ -59,7 +59,7 @@ gcloud compute instances create ldapubnfscl-b-final \
     --image-family ubuntu-1604-lts \
     --image-project ubuntu-os-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ubnfsclientstartupscript.sh"
+    --metadata-from-file startup-script="/ldap/startupscriptmaster/ubnfsclientstartupscript.sh"
 
 ####UBNFS CLIENT B END#####
 
@@ -70,7 +70,7 @@ gcloud compute instances create postgres-final-server\
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/postgresstartupscript.sh"
+    --metadata-from-file startup-script="/ldap/startupscriptmaster/postgresstartupscript.sh"
     
 postgresip=$(gcloud compute instances list | grep postgres-final-server | awk '{ print $4 }' | tail -1) 
 
@@ -84,7 +84,7 @@ gcloud compute instances create django-final-server \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/djangoserverstartupscript.sh"
+    --metadata-from-file startup-script="/ldap/startupscriptmaster/djangoserverstartupscript.sh"
     
 djangoip=$(gcloud compute instances list | grep django-final-server | awk '{ print $4 }' | tail -1) 
 
