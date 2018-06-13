@@ -13,7 +13,7 @@ yum install git -y
 
 git clone https://github.com/passwordlandia/ldap.git
 
-####LDAP SERVER#####
+####LDAP SERVER START#####
 gcloud compute instances ldap-server-a \
     --zone us-east1-b \
     --machine-type f1-micro \
@@ -25,36 +25,9 @@ gcloud compute instances ldap-server-a \
 ldapip=$(gcloud compute instances list | grep ldap-server-a | awk '{ print $4 }' | tail -1) 
 
 echo $ldapip > ldapip.txt
-####LDAP SERVER#####
+####LDAP SERVER END#####
 
-####LDAP CLIENT-A####
-gcloud compute instances ldap-client-a \
-    --zone us-east1-b \
-    --machine-type f1-micro \
-    --image-family centos-7 \
-    --image-project centos-cloud \
-    --tags "http-server","https-server" \
-    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ldapclientastartupscript.sh"
-    
-ldapclientipa=$(gcloud compute instances list | grep ldap-client-a | awk '{ print $4 }' | tail -1) 
-
-echo $ldapipclienta > ldapipclienta.txt
-####LDAP UBUNTU CLIENT-B####
-
-gcloud compute instances ldap-client-b \
-    --zone us-east1-b \
-    --machine-type f1-micro \
-    --image-family centos-7 \
-    --image-project centos-cloud \
-    --tags "http-server","https-server" \
-    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ldapclientbstartupscript.sh"
-    
-ip=$(gcloud compute instances list | grep ldap-client-b | awk '{ print $4 }' | tail -1) 
-
-echo $ldapipclientb > ldapipclientb.txt
-####LDAP UBUNTU CLIENT-B####
-
-#####NFS SERVER####
+#####NFS SERVER START####
 gcloud compute instances ldap-nfs-server \
     --zone us-east1-b \
     --machine-type f1-micro \
@@ -63,26 +36,40 @@ gcloud compute instances ldap-nfs-server \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/nfsstartupscript.sh"
     
-ip=$(gcloud compute instances list | grep nfs-server | awk '{ print $4 }' | tail -1) 
+nfsip=$(gcloud compute instances list | grep nfs-server | awk '{ print $4 }' | tail -1) 
 
 echo $nfsip > nfsip.txt
-#####NFS SERVER#####
+#####NFS SERVER END#####
 
-####NFS CLIENT#####
-gcloud compute instances ldap-nfs-client \
+####UBNFS CLIENT A START#####
+gcloud compute instances ldap-ubnfsa-client \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
     --image-project centos-cloud \
     --tags "http-server","https-server" \
-    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/nfsclientstartupscript.sh"
+    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ubnfsclientstartupscript.sh"
     
-ip=$(gcloud compute instances list | grep ldap-nfs-client | awk '{ print $4 }' | tail -1) 
+ubnfsaip=$(gcloud compute instances list | grep ldap-ubnfsa-client | awk '{ print $4 }' | tail -1) 
 
-echo $nfsclient > nfsclient.txt
-####NFS CLIENT#####
+echo $ubnfsaip > ubnfsa.txt
+####UBNFS CLIENT A END#####
 
-####POSTGRES SERVER#####
+####UBNFS CLIENT B START#####
+gcloud compute instances ldap-ubnfsb-client \
+    --zone us-east1-b \
+    --machine-type f1-micro \
+    --image-family centos-7 \
+    --image-project centos-cloud \
+    --tags "http-server","https-server" \
+    --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ubnfsclientstartupscript.sh"
+    
+ubnfsbip=$(gcloud compute instances list | grep ldap-ubnfsb-client | awk '{ print $4 }' | tail -1) 
+
+echo $ubnfsbip > ubnfsb.txt
+####UBNFS CLIENT B END#####
+
+####POSTGRES SERVER START#####
 gcloud compute instances ldap-postgres-server\
     --zone us-east1-b \
     --machine-type f1-micro \
@@ -91,12 +78,12 @@ gcloud compute instances ldap-postgres-server\
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/postgresstartupscript.sh"
     
-ip=$(gcloud compute instances list | grep ldap-postgres-server | awk '{ print $4 }' | tail -1) 
+postgresip=$(gcloud compute instances list | grep ldap-postgres-server | awk '{ print $4 }' | tail -1) 
 
 echo $postgresip > postgresip.txt
-####POSTGRES SERVER####
+####POSTGRES SERVER END####
 
-####DJANGO SERVER####
+####DJANGO SERVER START####
 gcloud compute instances ldap-django-server \
     --zone us-east1-b \
     --machine-type f1-micro \
@@ -105,9 +92,9 @@ gcloud compute instances ldap-django-server \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/djangoserverstartupscript.sh"
     
-ip=$(gcloud compute instances list | grep ldap-django-server | awk '{ print $4 }' | tail -1) 
+djangoip=$(gcloud compute instances list | grep ldap-django-server | awk '{ print $4 }' | tail -1) 
 
 echo $djangoip > djangoip.txt
-####DJANGO SERVER####
+####DJANGO SERVER END####
 
 ##END OF SCRIPT####
