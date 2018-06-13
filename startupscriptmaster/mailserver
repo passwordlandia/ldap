@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yum install exim mailx
+yum -y install exim mailx
 
 mkdir /root/SSL/mail.mydomain.com -p
 cd /root/SSL/mail.mydomain.com
@@ -11,18 +11,19 @@ sed line for inputs
 
 cp /etc/exim/exim.conf{,.orig}
 
-####Then open the exim config file: vim /etc/exim/exim.conf####
+yum -y install wget
 
-###Follow this tutorial to configure exim: https://www.rosehosting.com/blog/setup-a-mailserver-with-exim-and-dovecot-on-a-centos-7-vps/ ###
+####Then wget the exim config file: you can check the contents here:/etc/exim/exim.conf####
 
-###(You'll have to scroll down to where it has you edit the exam file)###
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/startupscriptmaster/exim.conf
 
 systemctl start exim
+systemctl status exim
+systemctl enable exim
 
-###To verify it's running issue systemctl status exim###
+yum -y install dovecot
 
-###sdiff exim.conf exim.conf.orig to see where you have changed the file###
-
+sed -i "ssl = required/ssl = Yes" /g' /etc/dovecot/conf.d/10-ssl.conf
 ###To test: echo "test" | /usr/sbin/exim -v nicolebade@mydomain.com where nicolebade@mydomain.com is your gcloud user,### 
 ###you should see exam working to deliver the message. It won't go through because of port blockage,### 
 ###but you'll be able to see it in the output of your command.###
