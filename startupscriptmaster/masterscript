@@ -46,7 +46,7 @@ gcloud compute instances ldap-ubnfsa-client \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
-    --image-project centos-cloud \
+    --image-project ubuntu-1604 \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ubnfsclientstartupscript.sh"
     
@@ -60,7 +60,7 @@ gcloud compute instances ldap-ubnfsb-client \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
-    --image-project centos-cloud \
+    --image-project ubuntu-1604 \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ubnfsclientstartupscript.sh"
     
