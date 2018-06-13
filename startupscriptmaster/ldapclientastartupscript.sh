@@ -2,7 +2,7 @@
 
 export DEBIAN_FRONTEND=noninteractive
 apt-install -y debconf-utils
-wget https://raw.githubusercontent.com/passwordlandia/ldap/master/ldap_debconf
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/startupscriptmaster/ldap_debconf
 
 while read line; do echo "$line" | debconf-set-selection; < ldap_debconf
 
