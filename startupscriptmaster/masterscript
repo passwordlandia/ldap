@@ -14,7 +14,7 @@ yum install git -y
 git clone https://github.com/passwordlandia/ldap.git
 
 ####LDAP SERVER START#####
-gcloud compute instances ldap-server-a \
+gcloud compute instances ldap-final-server \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
@@ -22,13 +22,13 @@ gcloud compute instances ldap-server-a \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ldapstartupscript.sh"
     
-ldapip=$(gcloud compute instances list | grep ldap-server-a | awk '{ print $4 }' | tail -1) 
+ldapip=$(gcloud compute instances list | grep ldap-final-server | awk '{ print $4 }' | tail -1) 
 
 echo $ldapip > ldapip.txt
 ####LDAP SERVER END#####
 
 #####NFS SERVER START####
-gcloud compute instances ldap-nfs-server \
+gcloud compute instances nfs-final-server \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
@@ -36,41 +36,35 @@ gcloud compute instances ldap-nfs-server \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/nfsstartupscript.sh"
     
-nfsip=$(gcloud compute instances list | grep nfs-server | awk '{ print $4 }' | tail -1) 
+nfsip=$(gcloud compute instances list | grep nfs-final-server | awk '{ print $4 }' | tail -1) 
 
 echo $nfsip > nfsip.txt
 #####NFS SERVER END#####
 
 ####UBNFS CLIENT A START#####
-gcloud compute instances ldap-ubnfsa-client \
+gcloud compute instances ldapubnfscl-a-final \
     --zone us-east1-b \
     --machine-type f1-micro \
-    --image-family centos-7 \
-    --image-project ubuntu-1604 \
+    --image-family ubuntu-1604-lts \
+    --image-project ubuntu-os-cloud \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ubnfsclientstartupscript.sh"
-    
-ubnfsaip=$(gcloud compute instances list | grep ldap-ubnfsa-client | awk '{ print $4 }' | tail -1) 
 
-echo $ubnfsaip > ubnfsa.txt
 ####UBNFS CLIENT A END#####
 
 ####UBNFS CLIENT B START#####
-gcloud compute instances ldap-ubnfsb-client \
+gcloud compute instances ldapubnfscl-b-final \
     --zone us-east1-b \
     --machine-type f1-micro \
-    --image-family centos-7 \
-    --image-project ubuntu-1604 \
+    --image-family ubuntu-1604-lts \
+    --image-project ubuntu-os-cloud \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ubnfsclientstartupscript.sh"
-    
-ubnfsbip=$(gcloud compute instances list | grep ldap-ubnfsb-client | awk '{ print $4 }' | tail -1) 
 
-echo $ubnfsbip > ubnfsb.txt
 ####UBNFS CLIENT B END#####
 
 ####POSTGRES SERVER START#####
-gcloud compute instances ldap-postgres-server\
+gcloud compute instances postgres-final-server\
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
@@ -78,13 +72,13 @@ gcloud compute instances ldap-postgres-server\
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/postgresstartupscript.sh"
     
-postgresip=$(gcloud compute instances list | grep ldap-postgres-server | awk '{ print $4 }' | tail -1) 
+postgresip=$(gcloud compute instances list | grep postgres-final-server | awk '{ print $4 }' | tail -1) 
 
 echo $postgresip > postgresip.txt
 ####POSTGRES SERVER END####
 
 ####DJANGO SERVER START####
-gcloud compute instances ldap-django-server \
+gcloud compute instances django-final-server \
     --zone us-east1-b \
     --machine-type f1-micro \
     --image-family centos-7 \
@@ -92,7 +86,7 @@ gcloud compute instances ldap-django-server \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/djangoserverstartupscript.sh"
     
-djangoip=$(gcloud compute instances list | grep ldap-django-server | awk '{ print $4 }' | tail -1) 
+djangoip=$(gcloud compute instances list | grep django-final-server | awk '{ print $4 }' | tail -1) 
 
 echo $djangoip > djangoip.txt
 ####DJANGO SERVER END####
