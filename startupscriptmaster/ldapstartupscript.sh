@@ -1,7 +1,7 @@
 #!/bin/bash
 
 yum -y install git
-git clone https://github.com/passwordlandia/ldap.git
+git clone https://github.com/nic-instruction/hello-nti-310.git
 yum -y install openldap-servers openldap-clients
 
 cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
