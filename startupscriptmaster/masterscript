@@ -22,7 +22,7 @@ gcloud compute instances ldap-server-a \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ldapstartupscript.sh"
     
-ip=$(gcloud compute instances list | grep ldap-server-a | awk '{ print $4 }' | tail -1) 
+ldapip=$(gcloud compute instances list | grep ldap-server-a | awk '{ print $4 }' | tail -1) 
 
 echo $ldapip > ldapip.txt
 ####LDAP SERVER#####
@@ -36,7 +36,7 @@ gcloud compute instances ldap-client-a \
     --tags "http-server","https-server" \
     --metadata-from-file startup-script="/home/paulierev1775/ldap/startupscriptmaster/ldapclientastartupscript.sh"
     
-ip=$(gcloud compute instances list | grep ldap-client-a | awk '{ print $4 }' | tail -1) 
+ldapclientipa=$(gcloud compute instances list | grep ldap-client-a | awk '{ print $4 }' | tail -1) 
 
 echo $ldapipclienta > ldapipclienta.txt
 ####LDAP UBUNTU CLIENT-B####
