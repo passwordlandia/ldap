@@ -79,7 +79,7 @@ DATABASES = {
         'NAME': 'myproject',
         'USER': 'myprojectuser',
         'PASSWORD': 'password',
-        'HOST': '$djangoip',
+        'HOST': "$djangoip",
         'PORT': '5432',
     }
 }
