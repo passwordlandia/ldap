@@ -11,10 +11,8 @@ systemctl start postgresql
 
 cp /var/lib/pgsql/data/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf.bak
 
-yum install -y wget
-
-wget https://raw.githubusercontent.com/passwordlandia/ldap/master/sqlfile.sql
-wget https://raw.githubusercontent.com/passwordlandia/ldap/master/pg_hba.conf
+curl https://raw.githubusercontent.com/passwordlandia/ldap/master/sqlfile.sql
+curl https://raw.githubusercontent.com/passwordlandia/ldap/master/pg_hba.conf
 
 sudo -i -u postgres psql -U postgres -f /sqlfile.sql
 sudo -i -u postgres psql -U postgres -d template1 -c "ALTER USER postgres WITH PASSWORD 'postgres';"
@@ -34,3 +32,5 @@ sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /var/lib/pgs
 systemctl restart postgresql.service
 systemctl enable httpd
 systemctl start httpd
+
+setenforce 0
