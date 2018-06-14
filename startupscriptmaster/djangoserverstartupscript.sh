@@ -12,8 +12,6 @@ cd /opt/myproject
 
 yum -y install wget
 
-djangoip=$(gcloud compute instances list | grep django-final-server | awk '{ print $4 }' | tail -1)
-
 wget https://raw.githubusercontent.com/passwordlandia/ldap/master/startupscriptmaster/settings.py
 
 sudo pip install virtualenv
