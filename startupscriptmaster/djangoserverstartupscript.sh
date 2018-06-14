@@ -10,9 +10,7 @@ yum install -y telnet
 mkdir /opt/myproject
 cd /opt/myproject
 
-yum -y install wget
-
-wget https://raw.githubusercontent.com/passwordlandia/ldap/master/startupscriptmaster/settings.py
+curl https://raw.githubusercontent.com/passwordlandia/ldap/master/startupscriptmaster/settings.py
 
 sudo pip install virtualenv
 virtualenv myprojectenv
