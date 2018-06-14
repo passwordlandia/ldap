@@ -105,20 +105,4 @@ mailservip=$(gcloud compute instances list | grep mailserv-final | awk '{ print 
 echo $mailservip > mailservip.txt
 ####MAILSERV END#####
 
-####LOBA SERV START#####
-gcloud compute instances create loba-final-server \
-    --zone us-east1-b \
-    --machine-type f1-micro \
-    --image-family centos-7 \
-    --image-project centos-cloud \
-    --tags "http-server","https-server" \
-    --metadata-from-file startup-script="/ldap/startupscriptmaster/lobaservstartupscript.sh"
-    
-lobaip=$(gcloud compute instances list | grep loba-final-server | awk '{ print $4 }' | tail -1) 
-
-echo $lobaip > lobaip.txt
-####LOBA SERV END#####
-
-
-
 ##END OF SCRIPT####
