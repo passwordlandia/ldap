@@ -9,10 +9,12 @@ postgresql-setup initdb
 systemctl enable postgresql
 systemctl start postgresql
 
+yum -y install wget
+
 cp /var/lib/pgsql/data/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf.bak
 
-curl https://raw.githubusercontent.com/passwordlandia/ldap/master/sqlfile.sql
-curl https://raw.githubusercontent.com/passwordlandia/ldap/master/pg_hba.conf
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/sqlfile.sql
+wget https://raw.githubusercontent.com/passwordlandia/ldap/master/pg_hba.conf
 
 sudo -i -u postgres psql -U postgres -f /sqlfile.sql
 sudo -i -u postgres psql -U postgres -d template1 -c "ALTER USER postgres WITH PASSWORD 'postgres';"
