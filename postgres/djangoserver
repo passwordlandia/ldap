@@ -10,7 +10,7 @@ yum install -y telnet
 mkdir /opt/myproject
 cd /opt/myproject
 
-curl https://raw.githubusercontent.com/passwordlandia/ldap/master/postgres/settings.py
+curl https://raw.githubusercontent.com/passwordlandia/ldap/master/startupscriptmaster/settings.py
 
 sudo pip install virtualenv
 virtualenv myprojectenv
